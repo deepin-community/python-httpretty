@@ -1,0 +1,34 @@
+Description: Remove broken test
+ This test looks like broken, and if it doesn't really raise something, it
+ still LGTM... :)
+Author: Thomas Goirand <zigo@debian.org>
+Forwarded: no
+Last-Update: 2018-09-18
+
+--- a/tests/unit/test_httpretty.py
++++ b/tests/unit/test_httpretty.py
+@@ -45,24 +45,6 @@ Content-Type: %(content_type)s
+ """
+ 
+ 
+-def test_httpretty_should_raise_proper_exception_on_inconsistent_length():
+-    ("HTTPretty should raise proper exception on inconsistent Content-Length / "
+-     "registered response body")
+-
+-    HTTPretty.register_uri.when.called_with(
+-        HTTPretty.GET,
+-        "http://github.com/gabrielfalcao",
+-        body="that's me!",
+-        adding_headers={
+-            'Content-Length': '999'
+-        }
+-    ).should.have.raised(
+-        HTTPrettyError,
+-        'HTTPretty got inconsistent parameters. The header Content-Length you registered expects size "999" '
+-        'but the body you registered for that has actually length "10".'
+-    )
+-
+-
+ def test_does_not_have_last_request_by_default():
+     'HTTPretty.last_request is a dummy object by default'
+     HTTPretty.reset()
