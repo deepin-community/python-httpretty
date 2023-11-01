@@ -1,0 +1,102 @@
+Description: Match URI without letter case in hostname.
+ The URI matching should ignore the hostname letter case, so that
+ intermediate “normalising” of the hostname does not affect whether
+ the URI matches.
+Bug: https://github.com/gabrielfalcao/HTTPretty/issues/369
+Bug-Debian: http://bugs.debian.org/919599
+Author: Ben Finney <bignose@debian.org>
+Co-Author: Thomas Goirand <zigo@debian.org>
+Forwarded: https://github.com/gabrielfalcao/HTTPretty/issues/369#issuecomment-455744083
+Last-Update: 2019-01-21
+
+Index: python-httpretty-1.0.5/httpretty/core.py
+===================================================================
+--- python-httpretty-1.0.5.orig/httpretty/core.py	2021-05-05 11:40:56.885959128 -0300
++++ python-httpretty-1.0.5/httpretty/core.py	2021-05-05 11:43:57.937746477 -0300
+@@ -1225,6 +1225,7 @@
+         :param hostname: a string
+         :returns: an :py:class:`~httpretty.core.URLMatcher` or ``None``
+         """
++        hostname_lower = hostname.lower()
+         items = sorted(
+             cls._entries.items(),
+             key=lambda matcher_entries: matcher_entries[0].priority,
+@@ -1232,8 +1233,8 @@
+         )
+         for matcher, value in items:
+             if matcher.info is None:
+-                pattern_with_port = "https://{0}:".format(hostname)
+-                pattern_without_port = "https://{0}/".format(hostname)
++                pattern_with_port = "https://{0}:".format(hostname_lower)
++                pattern_without_port = "https://{0}/".format(hostname_lower)
+                 hostname_pattern = (
+                     hostname_re
+                     .match(matcher.regex.pattern)
+@@ -1243,7 +1244,7 @@
+                     if re.match(hostname_pattern, pattern):
+                         return matcher
+ 
+-            elif matcher.info.hostname == hostname:
++            elif (matcher.info.hostname.lower() == hostname_lower):
+                 return matcher
+         return None
+ 
+@@ -1254,6 +1255,7 @@
+         :param port: an integer
+         :returns: an :py:class:`~httpretty.core.URLMatcher` or ``None``
+         """
++        hostname_lower = hostname.lower()
+         items = sorted(
+             cls._entries.items(),
+             key=lambda matcher_entries: matcher_entries[0].priority,
+@@ -1266,8 +1268,8 @@
+                 else:
+                     scheme = 'http://'
+ 
+-                pattern_without_port = "{0}{1}/".format(scheme, hostname)
+-                pattern_with_port = "{0}{1}:{2}/".format(scheme, hostname, port)
++                pattern_without_port = "{0}{1}/".format(scheme, hostname_lower)
++                pattern_with_port = "{0}{1}:{2}/".format(scheme, hostname_lower, port)
+                 hostname_pattern = (
+                     hostname_re
+                     .match(matcher.regex.pattern)
+@@ -1277,7 +1279,7 @@
+                     if re.match(hostname_pattern, pattern):
+                         return matcher
+ 
+-            elif matcher.info.hostname == hostname \
++            elif matcher.info.hostname.lower() == hostname_lower \
+                     and matcher.info.port == port:
+                 return matcher
+ 
+Index: python-httpretty-1.0.5/tests/unit/test_httpretty.py
+===================================================================
+--- python-httpretty-1.0.5.orig/tests/unit/test_httpretty.py	2021-05-05 11:40:56.885959128 -0300
++++ python-httpretty-1.0.5/tests/unit/test_httpretty.py	2021-05-05 11:40:56.877959138 -0300
+@@ -387,6 +387,26 @@
+         HTTPretty.disable()
+ 
+ 
++def test_match_http_address_should_ignore_hostname_case():
++    "HTTPretty.match_http_address should ignore case of hostname."
++
++    for (register_hostname, match_hostname) in [
++            ('foo.example.com', 'foo.example.com'),
++            ('FOO.example.COM', 'foo.example.com'),
++            ('foo.EXAMPLE.com', 'foo.example.com'),
++            ('fOo.eXaMpLe.com', 'foo.example.com'),
++            ('foo.example.com', 'FOO.example.COM'),
++            ('foo.example.com', 'foo.EXAMPLE.com'),
++            ('foo.example.com', 'fOo.eXaMpLe.com'),
++    ]:
++        HTTPretty.register_uri(
++            HTTPretty.GET,
++            "http://{hostname}/".format(hostname=register_hostname),
++            body="yay",
++        )
++        assert HTTPretty.match_http_address(match_hostname, 80)
++
++
+ def test_httpretty_should_allow_registering_regex_hostnames():
+     "HTTPretty should allow registering regexes with requests"
+ 

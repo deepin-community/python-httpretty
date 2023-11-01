@@ -1,0 +1,43 @@
+Description: Remove network access test
+ This test is doing network access, which isn't acceptable during build.
+Author: Thomas Goirand <zigo@debian.org>
+Bug-Debian: https://bugs.debian.org/909287
+Forwarded: no
+Last-Update: 2018-09-21
+
+--- a/tests/unit/test_core.py
++++ b/tests/unit/test_core.py
+@@ -187,33 +187,6 @@ def test_fake_ssl_socket_proxies_its_ow_
+     socket.send.assert_called_once_with("FOO")
+ 
+ 
+-@freeze_time("2013-10-04 04:20:00")
+-def test_fakesock_socket_getpeercert():
+-    ("fakesock.socket#getpeercert should return a hardcoded fake certificate")
+-    # Given a fake socket instance
+-    socket = fakesock.socket()
+-
+-    # And that it's bound to some host
+-    socket._host = 'somewhere.com'
+-
+-    # When I retrieve the peer certificate
+-    certificate = socket.getpeercert()
+-
+-    # Then it should return a hardcoded value
+-    certificate.should.equal({
+-        u'notAfter': 'Sep 29 04:20:00 GMT',
+-        u'subject': (
+-            ((u'organizationName', u'*.somewhere.com'),),
+-            ((u'organizationalUnitName', u'Domain Control Validated'),),
+-            ((u'commonName', u'*.somewhere.com'),)),
+-        u'subjectAltName': (
+-            (u'DNS', u'*.somewhere.com'),
+-            (u'DNS', u'somewhere.com'),
+-            (u'DNS', u'*')
+-        )
+-    })
+-
+-
+ def test_fakesock_socket_ssl():
+     ("fakesock.socket#ssl should take a socket instance and return itself")
+     # Given a fake socket instance

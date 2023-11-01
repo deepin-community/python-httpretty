@@ -1,15 +1,48 @@
-Source: template-repository
-Section: unknown
+Source: python-httpretty
+Section: python
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Debian OpenStack <team+openstack@tracker.debian.org>
+Uploaders:
+ Thomas Goirand <zigo@debian.org>,
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-python,
+ openstack-pkg-tools (>= 99~),
+ python3-all,
+ python3-freezegun,
+ python3-setuptools,
+Build-Depends-Indep:
+ python3-coverage,
+ python3-httplib2,
+ python3-mock,
+ python3-requests,
+ python3-pytest,
+ python3-six,
+ python3-sphinx,
+ python3-sphinx-rtd-theme,
+ python3-sphinxcontrib.websupport,
+ python3-sure,
+ python3-tornado,
+ python3-tz,
+ python3-urllib3,
+Standards-Version: 4.5.1
+Vcs-Browser: https://salsa.debian.org/openstack-team/python/python-httpretty
+Vcs-Git: https://salsa.debian.org/openstack-team/python/python-httpretty.git
+Homepage: https://github.com/gabrielfalcao/httpretty
+Testsuite: autopkgtest-pkg-python
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: python3-httpretty
+Architecture: all
+Depends:
+ python3-six,
+ python3-urllib3,
+ ${misc:Depends},
+ ${python3:Depends},
+Description: HTTP client mock - Python 3.x
+ Once upon a time a Python developer wanted to use a RESTful API, everything
+ was fine but until the day he needed to test the code that hits the RESTful
+ API: what if the API server is down? What if its content has changed ?
+ .
+ Don't worry, HTTPretty is here for you.
+ .
+ This package provides the Python 3.x module.
