@@ -1,0 +1,17 @@
+Description: Remove with-randomly from setup.cfg
+ As I really don't have the energy to package a 3rd randomizing nose tests
+ plugin...
+Author: Thomas Goirand <zigo@debian.org>
+Forwarded: no
+Last-Update: 2018-09-18
+
+--- python-httpretty-0.9.5.orig/setup.cfg
++++ python-httpretty-0.9.5/setup.cfg
+@@ -1,7 +1,6 @@
+ [nosetests]
+ verbosity=2
+ with-coverage=1
+-with-randomly=1
+ rednose=1
+ stop=1
+ nocapture=1

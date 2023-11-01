@@ -1,5 +1,215 @@
-template-repository (1.0-1) unstable; urgency=medium
+python-httpretty (1.1.4-3) unstable; urgency=medium
 
-  * Initial release
+  * Switch to pytest instead of nose (Closes: #1018511).
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Thomas Goirand <zigo@debian.org>  Wed, 23 Aug 2023 17:12:13 +0200
+
+python-httpretty (1.1.4-2) unstable; urgency=medium
+
+  * Cleans better (Closes: #1047382).
+
+ -- Thomas Goirand <zigo@debian.org>  Mon, 21 Aug 2023 11:55:47 +0200
+
+python-httpretty (1.1.4-1) unstable; urgency=medium
+
+  * Uploading to unstable.
+  * New upstream release.
+
+ -- Thomas Goirand <zigo@debian.org>  Wed, 20 Oct 2021 23:07:22 +0200
+
+python-httpretty (1.0.5-0.1) experimental; urgency=medium
+
+  * Non-maintainer upload.
+  * New upstream version 1.0.5.
+  * d/watch: point file correctly to be detected by uscan
+  * d/patches: update patches:
+    - Remove python-3.9-threading.isAlive-is-removed.patch (not needed).
+    - Remove remove-with-randomly.patch (not needed).
+  * d/control: add python3-freezegun build dependency.
+  * d/control: bump debhelper-compat to 13 (from 12).
+  * d/control: bump Standards-Version to 4.5.1 (from 4.4.1).
+
+ -- Emmanuel Arias <eamanu@yaerobi.com>  Tue, 04 May 2021 18:43:33 -0300
+
+python-httpretty (0.9.5-7) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Bump Standards-Version to 4.4.1.
+
+  [ Thomas Goirand ]
+  * Add python-3.9-threading.isAlive-is-removed.patch (Closes: #972721).
+
+ -- Thomas Goirand <zigo@debian.org>  Wed, 28 Oct 2020 01:44:30 +0100
+
+python-httpretty (0.9.5-6) unstable; urgency=medium
+
+  * Team upload.
+  * Use pybuild to build package again.
+  * Bump debhelper compat level to 12 again.
+  * Sync d/changelog of 0.9.5-4 and 0.9.5-5 with archive reality.
+
+ -- Ondřej Nový <onovy@debian.org>  Mon, 16 Sep 2019 13:44:06 +0200
+
+python-httpretty (0.9.5-5) unstable; urgency=medium
+
+  * Lower debhelper compat level to 11.
+  * Use openstack-pkg-tools instead of pybuild to build package.
+  * Add python3-coverage to B-D.
+  * Remove versioned depends of python3-six.
+  * Bump required version of openstack-pkg-tools.
+
+ -- Thomas Goirand <zigo@debian.org>  Fri, 13 Sep 2019 14:00:13 +0200
+
+python-httpretty (0.9.5-4) unstable; urgency=medium
+
+  * Team upload.
+  * Use debhelper-compat instead of debian/compat.
+  * Use pybuild to build package.
+  * Bump debhelper compat level to 12.
+  * Bump standards version to 4.4.0.
+  * Drop Python 2 support (Closes: #937818).
+
+ -- Ondřej Nový <onovy@debian.org>  Fri, 13 Sep 2019 12:05:49 +0200
+
+python-httpretty (0.9.5-3) unstable; urgency=medium
+
+  [ Ben Finney & Thomas Goirand ]
+  * Add a patch to correct upstream bug with matching URIs.
+    (Closes: #919599).
+
+ -- Thomas Goirand <zigo@debian.org>  Mon, 21 Jan 2019 15:00:06 +0100
+
+python-httpretty (0.9.5-2) unstable; urgency=medium
+
+  * Add RES_OPTIONS=attempts:0 to avoid resolving in unit tests.
+  * Remove test that is doing network access during the build. Thanks to
+    Adrian Bunk for the bug report (Closes: #909287).
+
+ -- Thomas Goirand <zigo@debian.org>  Fri, 21 Sep 2018 10:12:41 +0200
+
+python-httpretty (0.9.5-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Removed version from python{3,}-all build dependency
+  * d/control: Use team+openstack@tracker.debian.org as maintainer
+  * d/control: Set Vcs-* to salsa.debian.org
+
+  [ Daniel Baumann ]
+  * Updating copyright format url.
+  * Updating maintainer field.
+  * Running wrap-and-sort -bast.
+  * Removing gbp.conf, not used anymore or should be specified in the
+    developers dotfiles.
+  * Updating standards version to 4.1.0.
+
+  [ Thomas Goirand ]
+  * New upstream release.
+  * Fixed (build-)depends for this release.
+  * Add patch to remove with-randomly from setup.cfg's nose config.
+  * Add remove-broken-test.patch.
+  * Using python -m nose to run tests on all Py versions.
+  * Do not install docs/NEWS.md which doesn't exist anymore.
+
+ -- Thomas Goirand <zigo@debian.org>  Tue, 18 Sep 2018 15:35:26 +0000
+
+python-httpretty (0.8.14-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release (Closes: #815851)
+  * Fixed homepage (https).
+  * Fixed VCS URLs (https).
+  * d/rules: Changed UPSTREAM_GIT protocol to https
+  * d/copyright
+    - Changed source URL to https protocol
+    - Reordered
+    - Added myself to Debian part
+  * Removed removes-non-ascii-char-from-source.patch (not needed)
+  * Don't ignore unittests results during build and enable Py3 tests
+  * Enabled autopkgtest-pkg-python testsuite
+  * Standards-Version is 3.9.8 now (no changes needed)
+  * Install upstream changelog
+
+ -- Ondřej Nový <novy@ondrej.org>  Tue, 24 May 2016 14:08:23 +0200
+
+python-httpretty (0.8.6-2) unstable; urgency=medium
+
+  * Uploading to unstable.
+
+ -- Thomas Goirand <zigo@debian.org>  Mon, 27 Apr 2015 19:51:29 +0000
+
+python-httpretty (0.8.6-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Added export http{s,}_proxy.
+
+ -- Thomas Goirand <zigo@debian.org>  Sun, 19 Apr 2015 12:01:53 +0200
+
+python-httpretty (0.8.3-2) experimental; urgency=medium
+
+  * Adds a patch to remove non-ascii chars from source.
+
+ -- Thomas Goirand <zigo@debian.org>  Sun, 19 Apr 2015 11:22:29 +0200
+
+python-httpretty (0.8.3-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Added a lintian-overrides for theme/assets/js/prefixfree.min.js: the file
+    isn't minifed, so it's ok.
+
+ -- Thomas Goirand <zigo@debian.org>  Wed, 04 Mar 2015 11:10:36 +0100
+
+python-httpretty (0.8.0-2) unstable; urgency=medium
+
+  * Added python3 support.
+  * Allow the unit tests to fail, because they do with the last version of
+    python-sure (Closes: #746118).
+
+ -- Thomas Goirand <zigo@debian.org>  Thu, 03 Apr 2014 15:44:09 +0800
+
+python-httpretty (0.8.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Removed tests removal, because upstream did remove the tests files from the
+    setup.py.
+  * reviewed (build-)dependencies.
+
+ -- Thomas Goirand <zigo@debian.org>  Thu, 06 Mar 2014 22:20:14 +0800
+
+python-httpretty (0.7.1-3) unstable; urgency=medium
+
+  * Do not package the test folder. (Closes: #738210)
+
+ -- Thomas Goirand <zigo@debian.org>  Sun, 09 Feb 2014 18:06:15 +0800
+
+python-httpretty (0.7.1-2) unstable; urgency=medium
+
+  * Added missing build-depends: python-mock, python-nose.
+
+ -- Thomas Goirand <zigo@debian.org>  Sat, 08 Feb 2014 15:18:07 +0800
+
+python-httpretty (0.7.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Adds unit tests run.
+  * Standards-Version: is now 3.9.5.
+
+ -- Thomas Goirand <zigo@debian.org>  Mon, 30 Dec 2013 16:09:41 +0800
+
+python-httpretty (0.6.3+20130727+git9d03c1cf-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fixed debian/copyright source field.
+
+ -- Thomas Goirand <zigo@debian.org>  Wed, 11 Sep 2013 13:46:26 +0800
+
+python-httpretty (0.6.2-2) unstable; urgency=low
+
+  * Fixed debian/copyright
+
+ -- Thomas Goirand <zigo@debian.org>  Wed, 04 Sep 2013 20:07:17 +0800
+
+python-httpretty (0.6.2-1) unstable; urgency=low
+
+  * Initial release. (Closes: #721517).
+
+ -- Thomas Goirand <zigo@debian.org>  Sun, 01 Sep 2013 22:09:02 +0800
